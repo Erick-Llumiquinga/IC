@@ -1,0 +1,337 @@
+@mixin tablet {
+	@media only screen and (min-width: #{$tablet}) {
+		@content;
+	}
+  }
+
+
+@mixin textBody {
+	font-family: 'Sniglet', cursive;
+	font-size: 17px;
+	color: $white;
+	font-weight: 100;
+}
+
+@mixin horizontalCenter{
+    margin-left: auto;
+	margin-right: auto;
+	display: block;
+    
+}
+
+@mixin verticalCenter {
+	position: relative;
+	top: 50%;
+	left: 40%;
+	transform: translate(-50%, -50%)
+}
+
+@mixin bgCovertint ($r-from, $g-from, $b-from, $r-to, $g-to, $b-to, $alpha, $imgurl, $background-top:"center", $background-left:"center", $background-attachment:"fixed") {
+	background: -webkit-linear-gradient(rgba($r-from, $g-from, $b-from, $alpha), rgba($r-to, $g-to, $b-to, $alpha)), url($imgurl) no-repeat unquote($background-top) unquote($background-left) unquote($background-attachment); 
+	background:    -moz-linear-gradient(rgba($r-from, $g-from, $b-from, $alpha), rgba($r-to, $g-to, $b-to, $alpha)), url($imgurl) no-repeat unquote($background-top) unquote($background-left) unquote($background-attachment); 
+	background:      -o-linear-gradient(rgba($r-from, $g-from, $b-from, $alpha), rgba($r-to, $g-to, $b-to, $alpha)), url($imgurl) no-repeat unquote($background-top) unquote($background-left) unquote($background-attachment); 
+	background:         linear-gradient(rgba($r-from, $g-from, $b-from, $alpha), rgba($r-to, $g-to, $b-to, $alpha)), url($imgurl) no-repeat unquote($background-top) unquote($background-left) unquote($background-attachment); 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;  
+}
+
+@mixin headers {
+	font-weight: 500;
+	font-size: 70px;
+	text-align: center;
+	margin-bottom: 10px;
+	height: 50%;
+	@include horizontalCenter()
+}
+
+@mixin border-radius($border) {
+	border-radius: $border;
+}
+
+@mixin gridContent($cantidad, $margin) {
+    width: ((100% - (($cantidad - 1) * $margin))/$cantidad);
+    &:nth-child(n) {
+      margin-right: $margin;
+      margin-bottom: $margin;
+    }
+    &:nth-child(#{$cantidad}n + 1) {
+        margin-right:0;
+        margin-bottom: 0;
+    }
+}
+
+@mixin carousel($items, $animation: 'default') {
+	.carousel {
+	  width: 100%;
+	  top: 30px;
+	  position: relative;
+	  overflow: hidden;
+  
+	  > input[type="radio"] {
+		position: absolute;
+		left: 0;
+		opacity: 0;
+		top: 10%;
+  
+		&:checked {
+		  ~ .carousel__items .carousel__item,
+		  ~ .carousel__prev > label,
+		  ~ .carousel__next > label {
+			opacity: 0;
+		  }	
+		}
+  
+		@for $i from 1 through $items {
+		  &:nth-child(#{$i}) {
+			&:checked {
+			  ~ .carousel__items .carousel__item {
+				@if $animation == 'default' {
+				  &:nth-child(#{$i}) {
+					opacity: 1;
+				  }
+				}
+			  }
+  
+			  ~ .carousel__prev {
+				> label {
+				  @if $i == 1 {
+					&:nth-child(#{$items}) {
+					  @extend %animation-default;
+					}
+				  } @else if $i == $items {
+					&:nth-child(#{$items - 1}) {
+					  @extend %animation-default;
+					}
+				  } @else {
+					&:nth-child(#{$i - 1}) {
+					  @extend %animation-default;
+					}
+				  }
+				}
+			  }
+  
+			  ~ .carousel__next {
+				> label {
+				  @if $i == $items {
+					&:nth-child(1) {
+					  @extend %animation-default;
+					}
+				  } @else {
+					&:nth-child(#{$i + 1}) {
+					  @extend %animation-default;
+					}
+				  }
+				}
+			  }
+  
+			  ~ .carousel__nav {
+				> label {
+				  &:nth-child(#{$i}) {
+					background: #ccc;
+					cursor: default;
+					pointer-events: none;
+				  }
+				}
+			  }
+			}
+		  }
+		}
+	  }
+  
+	  &__items {
+		margin: 0;
+		padding: 0;
+		list-style-type: none;
+		width: 100%;
+		height: 500px;
+		position: relative;
+	  }
+  
+	  &__item {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+		transition: opacity 2s;
+		-webkit-transition: opacity 2s;
+  
+		img {
+			position: relative;
+			height: 400px;
+			width: 70%;
+			@include horizontalCenter()
+		}
+	  }
+  
+	  &__prev,
+	  &__next {
+		> label {
+		  border: 1px solid #fff;
+		  border-radius: 50%;
+		  cursor: pointer;
+		  display: block;
+		  width: 40px;
+		  height: 40px;
+		  position: absolute;
+		  top: 50%;
+		  transform: translateY(-50%);
+		  -webkit-transform: translateY(-50%);
+		  transition: all .3s ease;
+		  -webkit-transition: all .3s ease;
+		  opacity: 0;
+		  z-index: 2;
+  
+		  &:hover,
+		  &:focus {
+			opacity: .5 !important;
+		  }
+  
+		  &:before,
+		  &:after {
+			content: "";
+			position: absolute;
+			width: inherit;
+			height: inherit;
+		  }
+  
+		  &:before {
+			background: linear-gradient(to top, #fff 0%, #fff 10%, rgba(51, 51, 51, 0) 10%),
+						linear-gradient(to left, #fff 0%, #fff 10%, rgba(51, 51, 51, 0) 10%);
+			width: 60%;
+			height: 60%;
+			top: 20%;
+		  }
+		}
+	  }
+  
+	  &__prev {
+		> label {
+		  left: 2%;
+  
+		  &:before {
+			left: 35%;
+			top: 20%;
+			transform: rotate(135deg);
+			-webkit-transform: rotate(135deg);
+		  }
+		}
+	  }
+  
+	  &__next {
+		> label {
+		  right: 2%;
+  
+		  &:before {
+			left: 10%;
+			transform: rotate(315deg);
+			-webkit-transform: rotate(315deg);
+		  }
+		}
+	  }
+  
+	  &__nav {
+		position: absolute;
+		bottom: 3%;
+		left: 0;
+		text-align: center;
+		width: 100%;
+		z-index: 3;
+  
+		> label {
+		  border: 1px solid #fff;
+		  display: inline-block;
+		  border-radius: 50%;
+		  cursor: pointer;
+		  margin: 0 .125%;
+		  width: 20px;
+		  height: 20px;
+		}
+	  }
+	}
+  }
+
+%animation-default {
+opacity: 1 !important;
+z-index: 5;
+}
+
+@include carousel(6);
+
+@mixin button ($colors...){
+	@if $buttons {
+		display: inline-block;
+		margin: 1em;
+		border: none;
+		//color: nth($colors, 1); nth es el codigo que me permite leer un array; En sass el array inicia en 1
+		background-color: transparent;
+		color: $white;
+		@include  border-radius(20px);
+		transition: all .6s ease;
+		a {
+			text-decoration: none;
+		}
+		&:hover{
+			border: 1px solid $blue;
+			background: $blue;
+
+		}
+		@if length($colors) > 1{ //Se manda un array de parametros y pregunta si existen mas de 2 parametrso si es asi inicia el for caso contrario el boton coje la primera clase por defecto
+			@for $i from 2 through length($colors){
+				&.#{nth($colors, $i)}{
+					@if ($i) == 5{
+						&.#{nth($colors, $i)}{
+							background-color: map-get($buttonColors, nth($colors, $i));
+							@include  border-radius(20px);
+							color: $white;
+							border-style: none
+						}
+					}
+					@else{
+						background-color: map-get($buttonColors, nth($colors, $i));
+						@include  border-radius(20px);
+						color: $white;
+						&:hover{
+							transition: all .6s ease;
+							background-color: #ffffff7c;
+							border: 1px solid $green;
+							color: map-get($buttonColors, nth($colors, $i));
+						}
+					}
+				
+				}
+		
+			}
+			
+		}
+	}
+	@else{
+		display: none;
+	}
+}
+
+
+@mixin placeholder ($color,$font-weight){
+	::-webkit-input-placeholder {
+		color: $color;
+		font-weight: $font-weight;
+	}
+
+	:-moz-placeholder { /* Firefox 18- */
+		color: $color;
+		font-weight: $font-weight;
+	}
+
+	::-moz-placeholder {  /* Firefox 19+ */
+		color: $color;
+		font-weight: $font-weight;
+	}
+
+	:-ms-input-placeholder {  
+		color: $color; 
+		font-weight: $font-weight;
+	}
+}

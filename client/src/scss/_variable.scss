@@ -1,0 +1,31 @@
+$beige: #F2E2CE;
+$skyBlue: #88B0BF;
+$blue:  #46718C;
+$blueDark: #132B40;
+$Dark: #081826;
+$white: #ffffff;
+$redError: #c73636c0;
+$green: #62b134;
+
+$buttons: true !default;
+
+$buttonColors: (
+    primary: $blue,
+    secundary: $blueDark,
+    success: $green,
+    dark: $Dark,
+    block: $redError
+);
+
+$r-beige: 0;
+$g-beige: 0;
+$b-beige: 0;
+
+$r-brownCoffe: 25;
+$g-brownCoffe: 117;
+$b-brownCoffe: 255;
+
+$imageCover: "./assets/img/miniBack.jpg";
+//$imageCover2: "./assets/img/M42-N-Orion.jpg";
+//$imageCover3: "./assets/img/tierra.jpg";
+$opacityCover: .6;

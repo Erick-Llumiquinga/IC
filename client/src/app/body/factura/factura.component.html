@@ -1,0 +1,27 @@
+<app-header></app-header>
+<div id="profile">
+    <div class="margen">
+        <div id="formDinamic">
+            <div class="login">
+                <h1>Factura</h1>
+                <form class="form">
+                    <div class="form-element" >
+                        <select class="select" [(ngModel)]="proveedorId" (change)="mostrarDatos()">
+                            <option value="999">Proveedor</option>
+                            <option value="proveedor.proveedorId" *ngFor="let proveedor of proveedores; let i = index">{{proveedor['nombreProv']}}</option>
+                        </select>
+                    </div>
+                    <div class="form-element">
+                        <input type="text" placeholder="nombre" [(ngModel)]="cantidad" name="cantidad">
+                    </div>
+                    <div class="form-element" *ngIf="nuevoProducto === true">
+                        <input type="number"placeholder="cantidad" [(ngModel)]="fechaFact" name="fechaFact">
+                    </div>
+                    <div class="form-element">
+                        <button class="buttons success">Guardar</button>
+                    </div>    
+                </form>
+            </div>
+    </div>
+    </div>
+</div>

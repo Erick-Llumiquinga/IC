@@ -1,0 +1,29 @@
+
+<div id="loginUser">
+    <div class="login">
+        <h1>Inventory Code</h1>
+        <form [formGroup]="loginForm" class="form">
+            <div class="form-element">
+                <input type="text" formControlName="email" placeholder="Correo">
+                <div *ngIf="Email.invalid && (Email.dirty || Email.touched) ">
+                    <div class="spanError" *ngIf="Email.errors.required">El correo es requerido</div>
+                    <div class="spanError" *ngIf="Email.errors.pattern">Debe ingresar un correo valido</div>
+                </div>
+            </div>
+            <div class="form-element">
+                <input type="password" formControlName="password" placeholder="Contraseña">
+                <div *ngIf="Password.invalid && (Password.dirty || Password.touched)">
+                    <div class="spanError" *ngIf="Password.errors.required">La contraseña es requerida</div>
+                    <div class="spanError" *ngIf="Password.errors.pattern">La contraseña debe tener por lo menos 8 digitos y sin signos expeciales</div>
+                </div>
+            </div>
+            <div>
+                <button id="button" type="button" class="buttons block" [disabled]="!loginForm.valid" *ngIf="!loginForm.valid">Iniciar</button>
+            </div>
+            <div>
+                <button id="button" type="button" class="buttons success" (click)="validartorData()" *ngIf="loginForm.valid">Iniciar</button>
+            </div>
+        </form>
+    </div>
+</div>
+

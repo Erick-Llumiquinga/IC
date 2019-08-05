@@ -1,0 +1,43 @@
+<app-header></app-header>
+<div id="profile">
+    <div class="margen">
+        <div id="formDinamic">
+            <div class="login">
+                <h1>Registro</h1>
+                <form class="form">
+                    <div class="form-element">
+                        <select class="select" [(ngModel)]="proveedorId" name="proveedorId"  (change)="traerProductos()">
+                            <option value="999">Proveedor</option>
+                            <option value="{{proveedor['id']}}" *ngFor="let proveedor of proveedores; let i = index">{{proveedor['nombre']}}</option>
+                        </select>
+                    </div>
+                    <div class="form-element" >
+                        <select class="select" [(ngModel)]="productoId" name="productoId" [disabled]="!status">
+                            <option value="999">Producto</option>
+                            <option value="i+1" *ngFor="let producto of productos; let i = index">{{producto['nombre']}}</option>
+                        </select>
+                        <i class="fas fa-plus" (click)="nuevo()"></i>
+                    </div>
+                    <div class="form-element" *ngIf="nuevoProducto === true" disa>
+                        <input type="text" placeholder="Producto" [(ngModel)]="nombre" name="nombre">
+                    </div>
+                    <div class="form-element">
+                        <input type="number"placeholder="Elaboracion"  [(ngModel)]="elaboracion" name="elaboracion"> <input type="number"  [(ngModel)]="vencimiento" placeholder="Vencimiento" name="vencimiento">
+                    </div>
+                    <div class="form-element" > 
+                        <input type="number"placeholder="cantidad" [(ngModel)]="cantidad" name="cantidad">
+                    </div>
+                    <div class="form-element">
+                       <button class="buttons success" (click)="register()">Guardar</button>
+                    </div>    
+                </form>
+                <div class="form-element">
+                    <button class="buttons success" (click)="guardarImg()">Insertar Imagen</button>
+                 </div>    
+            </div>
+    </div>
+    </div>
+</div> 
+
+
+

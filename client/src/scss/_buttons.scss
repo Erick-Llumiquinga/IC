@@ -1,0 +1,6 @@
+.buttons{
+    @include button(map-keys($buttonColors)...);
+    height: 30px;
+    width: 50%;
+    @include textBody; 
+}

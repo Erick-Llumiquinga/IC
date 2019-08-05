@@ -1,0 +1,36 @@
+<app-header></app-header>
+<div id="report">
+    <div class="margen">
+          <div class="pieChart">
+            <div id="chartdiv" style="height: 400px; "></div>
+          </div>
+          <div class="card">
+            <div class="tabla">
+              <table >
+                  <thead>
+                      <tr>
+                            <th><span>Nº</span></th>
+                            <th><span>Producto</span></th>
+                            <th><span>Precio Unit</span></th>
+                            <th><span>Cantidad</span></th>
+                            <th><span>Elab</span></th>
+                            <th><span>Venc</span></th>
+                      </tr> 
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let producto of productos; let i = index">
+                      <th scope="row">{{i+1}}</th>
+                      <td>{{producto.nombre}}</td>
+                      <td>{{producto.precioUnit}}</td>
+                      <td>{{producto.cantidad}}</td>
+                      <td>{{producto.fecharLab}}</td>
+                      <td>{{producto.fechaVenc}}</td>
+                    </tr>
+                  </tbody>
+              </table>
+          </div>  
+          </div> 
+    </div>  
+</div>
+
+<app-home hidden (enviarId)="recibirId($event)"></app-home>

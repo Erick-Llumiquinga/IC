@@ -1,0 +1,32 @@
+<app-header></app-header>
+<div id="home">
+        <div class="modal" [hidden]="!status" (click)="closeModal()">
+                <div class="modalContent">
+                    <div class="modalHead">
+                        <i class="fas fa-times" (click)="closeModal()"></i>
+                    </div>
+                    <div class="modalBody">
+                        <div class="modalProv">
+                            <li *ngFor="let proveedor of proveedores; let i = index">
+                                <div class="card">
+                                    <img src="{{proveedor}}" (click)="reporteProducto(i+1)" >
+                                </div>
+                            </li>
+                        </div>   
+                    </div>
+                </div>
+            </div> 
+    <div class="margen">
+        <div class="header">
+            <img src="../../assets/img/techo.png">
+        </div>
+        <div class="noticias">
+            <li class="noticia" *ngFor="let categoria of categorias; let i = index">
+                <div class="card">
+                    <img src="{{categoria}}" (click)="openModal(i+1)" >
+                </div>
+            </li>
+        </div>
+    </div>
+</div>
+
