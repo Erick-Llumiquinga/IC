@@ -20,17 +20,18 @@ export class RegisterComponent implements OnInit {
   nuevoProducto: boolean;
   proveedorId: number;
   categoria: string;
-  producctoId: number;
+  productoId: number;
   elaboracion: string;
   vencimiento: string;
   cantidad: number;
   nombre: string
+  statusImg: boolean = true;
 
   constructor(private http:HttpClient, private fb:FormBuilder) { }
 
   ngOnInit() {
     this.proveedorId = 999;   
-    this.producctoId = 999;                                  
+    this.productoId = 999;                                  
     this.nuevoProducto = false;
     this.status = false;
     this.mostrarDatos()
@@ -66,7 +67,6 @@ export class RegisterComponent implements OnInit {
       registros:[
         { 
           proveedorid: this.proveedorId,
-          perchaid: this.proveedorId,
           categoriaid: this.proveedorId,
           nombre: this.nombre,
           precioUnit: 0.50,
@@ -85,6 +85,7 @@ export class RegisterComponent implements OnInit {
 
 
   guardarImg = () => {
+    this.statusImg = false;
     let prov = [
     {Img:  btoa('../../assets/img/prov/cocaCola.png')},
     {Img:  btoa('../../assets/img/prov/CoolTea.jpg')},

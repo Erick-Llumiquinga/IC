@@ -45,7 +45,7 @@ let leerDatosbyID = (req, res) => {
 
 let ingresarDatos =(req,res)=>{
     let tabla = req.body.tabla
-    let registro= req.body.registros;
+    let registro= req.body.datos;
     db(tabla).returning('id').insert(registro)
     .then(response=>{
     
@@ -63,7 +63,6 @@ let ingresarDatos =(req,res)=>{
         })
     })
 }
-
 
 let deleteDatos =(req,res)=>{
     let tabla = req.body.tabla
@@ -85,10 +84,9 @@ let deleteDatos =(req,res)=>{
     })
 }
 
-
  let actualizarDatos = (req,res)=>{
     let tabla = req.body.tabla
-    let registros = req.body.registros
+    let registros = req.body.datos
     registros.forEach(element => {
         db(tabla).where('id',element.id).update(element)
     .then(reponse=>{

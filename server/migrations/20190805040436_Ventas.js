@@ -6,7 +6,7 @@ exports.up = function(knex, Promise) {
             table.integer('productoid').references('id').inTable('productos').notNull();
             table.date('fechaFact');
             table.integer('cantidadProductos');
-            table.integer('valorTotal');            
+            //table.integer('valorTotal');            
         })
     ]);
 };

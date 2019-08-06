@@ -61,7 +61,7 @@ export class ReportsComponent implements OnInit {
   }
 
   traerDatos = () =>{
-    this.proveedorId = 2;
+    this.proveedorId = 1;
     this.http.get<any>(environment.url + `/leerFiltro?tabla=productos&id=${this.proveedorId}`)
     .subscribe(res=>{
         let data = res.datos;

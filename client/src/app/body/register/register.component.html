@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div id="profile">
-    <div class="margen">
+    <div class="">
         <div id="formDinamic">
             <div class="login">
                 <h1>Registro</h1>
@@ -31,7 +31,7 @@
                        <button class="buttons success" (click)="register()">Guardar</button>
                     </div>    
                 </form>
-                <div class="form-element">
+                <div class="form-element" *ngIf="statusImg === true">
                     <button class="buttons success" (click)="guardarImg()">Insertar Imagen</button>
                  </div>    
             </div>

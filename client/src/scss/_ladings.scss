@@ -287,33 +287,38 @@
         }
 }
 
-.list{
-    @include horizontalCenter;
-    position: relative;
-    top: 300px;
-    outline: none;
-    background-color: #ffffff75;
-    @include border-radius(20px);
-    transition: all 0.3s ease 0s;
-    width: 60%;
-    height: 400px;
-    label{
-        position: relative;
-        left: 20%;
-        font-size: 30px;
-    }
-    li{
-        position: relative;
-        left: 0%;
-        font-size: 17px;
-        margin-bottom: 10px;
-    }
-    button{
-        position: relative;
-        top: 20px;
+#list{
+    height: 100vh;
+    .list{
         @include horizontalCenter;
+        position: relative;
+        top: 200px;
+        outline: none;
+        background-color: #ffffff75;
+        @include border-radius(20px);
+        transition: all 0.3s ease 0s;
+        width: 60%;
+        height: 400px;
+        label{
+            position: relative;
+            left: 20%;
+            font-size: 30px;
+        }
+        li{
+            position: relative;
+            left: 0%;
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
+        button{
+            position: relative;
+            top: 20px;
+            @include horizontalCenter;
+        }
     }
 }
+
+
 
 
 

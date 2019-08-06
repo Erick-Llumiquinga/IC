@@ -4,7 +4,7 @@
         <h1>Inventory Code</h1>
         <form [formGroup]="loginForm" class="form">
             <div class="form-element">
-                <input type="text" formControlName="email" placeholder="Correo">
+                <input type="text" formControlName="email" placeholder="Nombre Usuario">
                 <div *ngIf="Email.invalid && (Email.dirty || Email.touched) ">
                     <div class="spanError" *ngIf="Email.errors.required">El correo es requerido</div>
                     <div class="spanError" *ngIf="Email.errors.pattern">Debe ingresar un correo valido</div>
