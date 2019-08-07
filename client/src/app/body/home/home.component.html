@@ -9,7 +9,7 @@
                         <div class="modalProv">
                             <li *ngFor="let proveedor of proveedores; let i = index">
                                 <div class="card">
-                                    <img src="{{proveedor}}" (click)="reporteProducto(i+1)" >
+                                    <img src="{{proveedor}}" (click)="reporteProducto(i)">
                                 </div>
                             </li>
                         </div>   
@@ -23,7 +23,7 @@
         <div class="noticias">
             <li class="noticia" *ngFor="let categoria of categorias; let i = index">
                 <div class="card">
-                    <img src="{{categoria}}" (click)="openModal(i+1)" >
+                    <img src="{{categoria}}" (click)="openModal(i)" >
                 </div>
             </li>
         </div>

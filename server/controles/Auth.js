@@ -4,44 +4,49 @@ let env = 'development'
 let db = require('knex')(config[env])
 
 
-const user;
-const password;
+const user = "";
+const password = "";
 
-let leerDatos =(req,res)=>{
-    let tabla = 'administradores'
-    let campo= req.query.campo
+let leerDatos = (res)=>{
+    let tabla = 'administradores';
+    let campo= '';
     db.select(campo).from(tabla)
         .then(response=>{
-        user = response.nomUsuario
-        password = response.password    
+        user = res.nomUsuario
+        password = res.clave    
         })
         .catch(error=>{
             console.log('NO existen registros')
         })
     }
 
-    let authUser =(req,res)=>{
+
+    let authUser = (req,res)=>{
+        
+        let userCl = '';
+        let claveCl = '';
         leerDatos()
 
-        let tabla = req.body.tabla
-        let registro= req.body.datos;
+        let registro = req.body
+      
+            userCl = registro.nombreUsuario
+            claveCl = registro.clave;
 
-        if(user != registro.email && password != registro.password){
+        if(user == userCl && password == claveCl){
             return res.status(404).json({
-                ok:true,
-                data: null,
                 mesaje:`El usuario no existe` //para programador
             })
         }
         else{
             return res.status(200).json({
                 ok:true,
-                data: null,
+                data: user,
                 mesaje:`Inicio de sesion` //para programador
             })
         }
 
     }
+
 
 module.exports = {
     authUser

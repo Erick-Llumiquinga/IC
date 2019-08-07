@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 
 
 
@@ -29,7 +30,7 @@ export class FacturaComponent implements OnInit {
   ngOnInit() {
     this.traerProveedores();
     this.iva = 0.12;
-    this.total = 0;
+    this.total = 3.00;
     this.proveedorId = 999;   
     this.productoId = 999;  
   }
@@ -75,7 +76,11 @@ export class FacturaComponent implements OnInit {
 
     this.http.post(environment.url + '/insertar', data)
     .subscribe(res=>{
-      console.log(res)
+      Swal.fire({
+        type: 'success',
+        title: 'Genial!',
+        text: 'Los datos se ingresaron coreectamente'
+      })
     })
   }
 }

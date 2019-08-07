@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray} from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-list',
@@ -9,76 +11,29 @@ import { Router } from '@angular/router';
 })
 export class ListComponent implements OnInit {
 
-  constructor(private formBuild:FormBuilder, private router:Router) { }
+  constructor(private http:HttpClient, private router:Router) { }
 
-  loginForm: FormGroup;  
-  email: string;
-  password: string;
-  message: string;
-  telefonos: FormArray;
-  inputsType: any[];
-  selectType: number;
-  type: string;
-  inputType: string;
+  nombreProveedor: string
+  nombreProductos: any = []
   
   ngOnInit() {
-    this.email = '';
-    this.password='';
-    this.inputsType = [
-      {id:1, name: 'Texto', typeI:'text'},
-      {id:2, name: 'Correo', typeI:'email'},
-      {id:3, name: 'Checkbox', typeI:'checkbox'},
-      {id:4, name: 'Numero', typeI:'number'},
-      {id:5, name: 'Contraseña', typeI:'password'}
-    ]
-    this.selectType = 999;
-    this.login();
+    this.traerDatos()
   }
 
-  login = () => {
-    this.loginForm = this.formBuild.group({
-      email: ['',[Validators.required, Validators.pattern('[^A-Z][^this.]+[^self.]+[a-z]+[0-9a-z-_.]*@[a-z]+[a-z0-9]*.[a-z]{2,3}.*[a-z]{2,3}')]],
-      password: ['',[Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
-      telefonos: this.formBuild.array([this.formBuild.group({phone: ['',[Validators.pattern('[^a-z][^A-Z](09)+[0-9]{8}')]]})])
+  traerDatos = () =>{
+    this.http.get<any>(environment.url + `/leer?tabla=productos`)
+    .subscribe(respo=>{
+      let data = respo.datos;
+      data.forEach(element => {
+        if(element.cantidad < 15){
+          this.nombreProductos.push(element)
+        }
+        else{
+          this.nombreProveedor = 'Wow! aun tienes Productos'
+        }
+      });
     })
   }
-
-  get Email(){ return this.loginForm.get('email')};
-  get Password(){ return this.loginForm.get('password')};
-
-  validartorData = () =>{
-
-    if(this.loginForm.valid){
-      this.email = this.loginForm.controls['email'].value;
-      this.password = this.loginForm.controls['password'].value;
-      this.router.navigate(['/home'])
-    }
-  }
-
-  get getPhones (){return this.loginForm.get('telefonos') as FormArray};
-
-  select = () =>{
-    
-  }
-
-  addCamp = () =>{
-    console.log('entra al addcamp ' + this.selectType)
-    for(let i = 0; i <= this.inputsType.length; i++){
-      if(i == this.selectType){
-        let type = this.inputsType[this.selectType]
-       this.inputType = type['typeI']
-        console.log( this.inputType);
-      }
-    }
-     const form = <FormArray>this.loginForm.controls['telefonos'];
-    form.push(this.formBuild.group({phone: ['']}));
-  } 
-
-  removeCamp = (index: number) =>{
-    const form = <FormArray>this.loginForm.controls['telefonos'];
-    form.removeAt(index)
-  } 
-
 
 
 }

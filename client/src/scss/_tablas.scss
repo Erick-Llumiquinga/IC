@@ -1,10 +1,11 @@
 table {
+  position: relative;
     margin-top: 30px;
     width:100%;
     text-align: center;
     font-size: 1rem;
     border-collapse: collapse;
-    height: 300px;
+    height: 100%;
     > caption {
       text-align: center;
       //font-family:$fuente-titulos;

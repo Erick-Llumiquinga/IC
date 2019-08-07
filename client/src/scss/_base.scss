@@ -80,18 +80,13 @@ body{
             li{
                 float: left;
                 list-style: none;
-                @include gridContent(4,1%);
+                @include gridContent(3,1%);
                 img{
                   display: block;
-                  height: 40%;
-                  width: 60%;
+                  height: 20%;
+                  width: 40%;
                   @include horizontalCenter;
                   @include border-radius(110px);
-                  &:hover{
-                    transition: all .6s ease;
-                    height: 37%;
-                  width: 63%;
-                }
                 }
             }
           }

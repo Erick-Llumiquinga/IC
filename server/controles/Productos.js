@@ -27,7 +27,27 @@ let leerDatosbyID = (req, res) => {
     let tabla = req.query.tabla
     let campo = req.query.campo
     let id = req.query.id
-    db.select(campo).from(tabla).where('proveedorid', id)
+    db.select(campo).from(tabla).where('categoriaid', id)
+    .then( resultado => {
+        return res.status(200).json({
+            ok: true,
+            datos: resultado
+        }) 
+    })
+    .catch((error) => {
+        return res.status(500).json({
+            ok: false,
+            datos: null,
+            mensaje: `Error del servidor: ${error}` 
+        })
+    })
+}
+
+let leerDatosbyIDCat = (req, res) => {
+    let tabla = req.query.tabla
+    let campo = req.query.campo
+    let id = req.query.id
+    db.select(campo).from(tabla).where('categoriaid', id)
     .then( resultado => {
         return res.status(200).json({
             ok: true,
@@ -48,7 +68,6 @@ let ingresarDatos =(req,res)=>{
     let registro= req.body.datos;
     db(tabla).returning('id').insert(registro)
     .then(response=>{
-    
         return res.status(200).json({
             ok:true,
             data:response,
@@ -114,5 +133,6 @@ module.exports = {
     ingresarDatos,
     deleteDatos,
     actualizarDatos,
-    leerDatosbyID
+    leerDatosbyID,
+    leerDatosbyIDCat
 }

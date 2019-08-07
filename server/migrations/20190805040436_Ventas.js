@@ -4,9 +4,9 @@ exports.up = function(knex, Promise) {
         knex.schema.createTable('ventas', function(table){
             table.bigIncrements('id').primary();
             table.integer('productoid').references('id').inTable('productos').notNull();
-            table.date('fechaFact');
-            table.integer('cantidadProductos');
-            //table.integer('valorTotal');            
+            table.date('fechaFact').notNull();
+            table.integer('cantidadProductos').notNull();
+            table.integer('valorTotal').notNull();            
         })
     ]);
 };

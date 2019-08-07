@@ -1,9 +1,7 @@
-import { Component, OnInit, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-
-
 
 @Component({
   selector: 'app-home',
@@ -12,13 +10,14 @@ import { environment } from '../../../environments/environment';
 })
 export class HomeComponent implements OnInit {
 
-  @Output() proveedor = new EventEmitter();
   img: any = new Image();
   status: boolean
   proveedores: any[];
   categorias: any = [];
   prueba: string
   proveedorId: number;
+  data: any[];
+  dataCat: any[];
 
   constructor(private router:Router, private http:HttpClient) { }
 
@@ -31,38 +30,32 @@ export class HomeComponent implements OnInit {
     this.http.get<any>(environment.url + '/leer?tabla=categorias')
     .subscribe(res=>{
       let cat = []
-      let catOrd = []
-      let data = res.datos
+      this.dataCat = res.datos
       let imgB64;
-      data.forEach(element => {
+      this.dataCat.forEach(element => {
         imgB64 = atob(element.img);
-        console.log('categorias' + imgB64);
           cat.push(this.img.src = imgB64)
-          console.log('entro al if' + element.id)
     })
-    
     this.categorias = cat 
     console.log(this.categorias)
+    console.log(this.dataCat)
   })  
   }
  
 
-  openModal = (id:number) =>{
+  openModal = (index:number) =>{
+    console.log(this.dataCat[index].id)
     this.status = true;
-
-    this.http.get<any>(environment.url + `/leerFiltro?tabla=proveedores&id=${id}`)
+    this.http.get<any>(environment.url + `/leerFiltroCat?tabla=proveedores&id=${this.dataCat[index].id}`)
     .subscribe(res=>{
       let prov = []
-      let data = res.datos
+      this.data = res.datos
       let imgB64;
-      data.forEach(element => {
+      this.data.forEach(element => {
         imgB64 = atob(element.img);
-        console.log('categorias' + imgB64);  
         prov.push(this.img.src = imgB64)
       });
       this.proveedores = prov
-      
-      console.log(prov)
     })
   }
 
@@ -70,14 +63,13 @@ export class HomeComponent implements OnInit {
     this.status = false;
   }
 
-  reporteProducto = (id: number) =>{
-    this.proveedorId = id;
-    this.router.navigate(['/report'])
+  reporteProducto = (index) =>{
+    let dato = this.data[index].id
+    sessionStorage.setItem('pv', dato)
+    this.router.navigate(['/report']);
   }
 
-  enviarId(){
-    this.proveedor.emit(this.proveedorId)
-  }
+
 
 }
 

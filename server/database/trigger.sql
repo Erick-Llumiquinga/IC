@@ -7,7 +7,7 @@ $$
     raise notice 'funcion disparador,accion sobre las columnas(nombreProd,fechaElav,fechaVenc,cantidadProd)'
 
     --nombre producto
-    if old.nombreProd = new.nombreProd  then raise exception 
+    if old.nombre = new.nombre  then raise exception 
     'El producto ya existe!!';
  	end if;
     --fechaElab producto
@@ -42,3 +42,6 @@ CREATE  TRIGGER trInsertProd
     for each row
 execute procedure insetarProd();
 /*TRIGGER fin*/
+
+
+saver eñl nombre de la existencia del produco y categoria del producto que tenga mayor precio

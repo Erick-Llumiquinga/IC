@@ -5,7 +5,7 @@ exports.seed = function(knex, Promise) {
         {
           apellido: 'Llumiquinga',
           clave :'420Erick',
-          nomUsuario : 'Erick',
+          nomUsuario : 'erickUser',
           nombre : 'Erick'
         }
     ]);

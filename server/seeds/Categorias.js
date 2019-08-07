@@ -3,27 +3,21 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       return knex('categorias').insert([
         {
-
-          nombre: 'Bebidas'
-        },
-        {
-
-          nombre: 'Licores  '
-        },
-        {
-
           nombre: 'Comestibles'
         },
         {
-  
+          nombre: 'Bebidas'
+        },
+        {
           nombre: 'Dulces'
         },
         {
- 
           nombre: 'Lacteos'
         },
         {
- 
+          nombre: 'Licores'
+        },
+        {
           nombre: 'Limpieza'
         }
     ]);

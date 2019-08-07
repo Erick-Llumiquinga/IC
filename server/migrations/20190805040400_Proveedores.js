@@ -7,7 +7,7 @@ exports.up = function(knex, Promise) {
           table.string('celular');
           table.string('fijo');
           table.string('img')
-          table.integer('proveedorid').references('id').inTable('categorias').notNull();
+          table.integer('categoriaid').references('id').inTable('categorias').notNull();
         })
     ]);
 };

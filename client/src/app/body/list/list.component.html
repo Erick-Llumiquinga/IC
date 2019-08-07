@@ -4,18 +4,11 @@
         <div class="">
             <div class="list">
                 <div class="margen">
-                        <label>Hola! Te recomendamos estos productos!</label>
-                        <li>Coca Cola</li>  
-                        <li>sprite 500ml</li>
-                        <li>powerage 800ml</li>
-                        <li>fanta 1lt</li>
-                        <li>neste 500ml</li>
-                        <li>Monster</li>
-                        <li>monster red 500ml</li>
-                        <li>monster green 500ml</li>
-                        <li>monster original 500ml</li>
+                        <label>¡Hola! te recomendamos estos productos</label>
+                        <h3>RedBull</h3>
+                        <li *ngFor="let producto of nombreProductos">{{producto['nombre']}}</li> 
                 </div>
-                <button class="buttons primary ">Gracias!</button>
+                <button class="buttons primary " routerLink="/home">Gracias!</button>
             </div>
         </div>
     </div>

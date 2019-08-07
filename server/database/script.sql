@@ -185,3 +185,7 @@ ALTER TABLE Productos
 ADD FOREIGN KEY (categoriaId) REFERENCES Categorias (categoriaId);
 
 
+create view view_productos
+as select nombre from Proveedores
+
+1- cree una vista de la tabla clientes que muestre nombreCompania, nombreCOntacto, direccionCLient

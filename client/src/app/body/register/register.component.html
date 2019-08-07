@@ -21,11 +21,14 @@
                     <div class="form-element" *ngIf="nuevoProducto === true" disa>
                         <input type="text" placeholder="Producto" [(ngModel)]="nombre" name="nombre">
                     </div>
+                    <div class="form-element" *ngIf="nuevoProducto === true" disa>
+                        <input type="number"  placeholder="Precio Unitario" [(ngModel)]="precioUnit" name="precioUnit">
+                    </div>
                     <div class="form-element">
-                        <input type="number"placeholder="Elaboracion"  [(ngModel)]="elaboracion" name="elaboracion"> <input type="number"  [(ngModel)]="vencimiento" placeholder="Vencimiento" name="vencimiento">
+                        <input type="text"placeholder="Elaboracion"  [(ngModel)]="elaboracion" name="elaboracion"> <input type="text"  [(ngModel)]="vencimiento" placeholder="Vencimiento" name="vencimiento">
                     </div>
                     <div class="form-element" > 
-                        <input type="number"placeholder="cantidad" [(ngModel)]="cantidad" name="cantidad">
+                        <input type="text"placeholder="cantidad" [(ngModel)]="cantidad" name="cantidad">
                     </div>
                     <div class="form-element">
                        <button class="buttons success" (click)="register()">Guardar</button>

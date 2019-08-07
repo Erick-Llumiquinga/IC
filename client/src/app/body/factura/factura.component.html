@@ -3,12 +3,12 @@
     <div class="">
         <div id="formDinamic">
             <div class="login">
-                <h1>Factura</h1>
+                <h1>Reporte de Venta</h1>
                 <form class="form">
                     <div class="form-element" >
                         <select class="select" [(ngModel)]="proveedorId" name="proveedorId" (change)="traerProductos()">
                             <option value="999">Proveedor</option>
-                            <option value="{{proveedor.id}}" *ngFor="let proveedor of proveedores; let i = index">{{proveedor['nombre']}}</option>
+                            <option value="{{proveedor['id']}}" *ngFor="let proveedor of proveedores; let i = index">{{proveedor['nombre']}}</option>
                         </select>
                     </div>
                     <div class="form-element">
@@ -18,14 +18,14 @@
                         </select>
                     </div>
                     <div class="form-element">
-                        <input type="number"placeholder="fechaFact" [(ngModel)]="fechaFact" name="fechaFact">
+                        <input type="text"placeholder="fechaFact" [(ngModel)]="fechaFact" name="fechaFact">
                     </div>
                     <div class="form-element">
                         <input type="number"placeholder="cantidad" [(ngModel)]="cantidad" name="cantidad">
                     </div>
                     <div class="form-element">
                         <label>Total</label>
-                        <input type="number" [ngModel]="total" name="total" disabled>
+                        <input type="number"  value="{{total}}" disabled>
                     </div>
                     <div class="form-element">
                         <i class="fas fa-plus" (click)="agrgarProducto()"></i>

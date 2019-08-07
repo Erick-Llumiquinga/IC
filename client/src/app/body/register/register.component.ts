@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,6 @@ export class RegisterComponent implements OnInit {
   proveedores: any[];
   categorias: any; 
   productos: any[];
-  tabla: string;
   datas: any;
   nuevoProducto: boolean;
   proveedorId: number;
@@ -26,6 +26,7 @@ export class RegisterComponent implements OnInit {
   cantidad: number;
   nombre: string
   statusImg: boolean = true;
+  precioUnit: number;
 
   constructor(private http:HttpClient, private fb:FormBuilder) { }
 
@@ -42,7 +43,6 @@ export class RegisterComponent implements OnInit {
     let datos = res.datos
     this.proveedores = datos
     this.status = true;
-    console.log(this.proveedorId)
   })                                      
 }
 
@@ -52,33 +52,44 @@ export class RegisterComponent implements OnInit {
     .subscribe(res =>{
       let datos = res.datos
       this.productos = datos
-      console.log(this.productos)
     })
   }
 
   nuevo = () => {
     this.nuevoProducto = true;
-    console.log(this.proveedores)
   }
 
   register = () => {
     this.datas = {
       tabla: 'productos',
-      registros:[
+      datos:[
         { 
           proveedorid: this.proveedorId,
           categoriaid: this.proveedorId,
           nombre: this.nombre,
-          precioUnit: 0.50,
-          fecharLab: this.elaboracion,
+          precioUnit: this.precioUnit,
+          fechaLab: this.elaboracion,
           fechaVenc: this.vencimiento,
           cantidad: this.cantidad
         }
       ]
     }
-    this.http.post(environment.url + `/insertar`, this.datas)
+    this.http.post<any>(environment.url + `/insertar`, this.datas)
     .subscribe(response=>{
-      console.log(response);
+      if(response.ok == true){
+        Swal.fire({
+          type: 'success',
+          title: 'Genial!',
+          text: 'Los datos se ingresaron coreectamente'
+        })
+      }
+      else{
+        Swal.fire({
+          type: 'error',
+          title: 'Ups!',
+          text: 'No se puedo guardar'
+        })
+      }
     })
   }
 
@@ -97,15 +108,15 @@ export class RegisterComponent implements OnInit {
     {Img:  btoa('../../assets/img/prov/pronaca.jpg')},
     {Img:  btoa('../../assets/img/prov/favorita.png')},
     {Img:  btoa('../../assets/img/prov/real.png')},
-    {Img:  btoa('../../assets/img/prov/nestle.png')},
+    {Img:  btoa('../../assets/img/prov/Nestle.png')},
     {Img:  btoa('../../assets/img/prov/confiteca.png')},
-    {Img:  btoa('../../assets/img/prov/pinguino.png')},
+    {Img:  btoa('../../assets/img/prov/pinguino.jpg')},
     {Img:  btoa('../../assets/img/prov/carli.png')},
     {Img:  btoa('../../assets/img/prov/hit.png')},
     {Img:  btoa('../../assets/img/prov/master.png')},
     {Img:  btoa('../../assets/img/prov/mervisa.png')},
     {Img:  btoa('../../assets/img/prov/ozz.png')},
-    {Img:  btoa('../../assets/img/prov/norteño.jfif')},
+    {Img:  btoa('../../assets/img/prov/norteño.png')},
     {Img:  btoa('../../assets/img/prov/pilsener.png')},
     {Img:  btoa('../../assets/img/prov/switch.png')},
     {Img:  btoa('../../assets/img/prov/piña.png')},
@@ -114,8 +125,8 @@ export class RegisterComponent implements OnInit {
     ]
 
     let cat = [
-      {Img:  btoa('../../assets/img/bebidas.png')},
       {Img:  btoa('../../assets/img/comestibles.png')},
+      {Img:  btoa('../../assets/img/bebidas.png')},
       {Img:  btoa('../../assets/img/dulces.png')},
       {Img:  btoa('../../assets/img/lacteos.png')},
       {Img:  btoa('../../assets/img/licores.png')},
@@ -127,24 +138,22 @@ export class RegisterComponent implements OnInit {
     prov.forEach(element=>{
       let data = {
         tabla: 'proveedores',
-        registros: [{id: i, img: element.Img}]
+        datos: [{id: i, img: element.Img}]
       }
       i +=1
       this.http.post(environment.url + '/actualizar', data)
       .subscribe(res =>{
-        console.log(res)
       })
     })
   
     cat.forEach(element=>{
       let data = {
         tabla: 'categorias',
-        registros: [{id: number, img: element.Img}]
+        datos: [{id: number, img: element.Img}]
       }
       number += 1
       this.http.post(environment.url + '/actualizar', data)
       .subscribe(res =>{
-        console.log(res)
       })
     })
   }
